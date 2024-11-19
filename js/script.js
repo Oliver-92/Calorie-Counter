@@ -1,3 +1,4 @@
+/* Definir variables */
 const calorieCounter = document.getElementById('calorie-counter');
 const budgetNumberInput = document.getElementById('budget');
 const entryDropdown = document.getElementById('entry-dropdown');
@@ -6,16 +7,20 @@ const clearButton = document.getElementById('clear');
 const output = document.getElementById('output');
 let isError = false;
 
+/* Función para limpiar signos y/o espacios de los inputs de usuario */
 function cleanInputString(str) {
   const regex = /[+-\s]/g;
   return str.replace(regex, '');
 }
 
+/* Función para verificar notación científica en los inputs */
 function isInvalidInput(str) {
   const regex = /\d+e\d+/i;
   return str.match(regex);
 }
 
+/* Función que agrega dinámicamente un nuevo conjunto de campos de entrada (nombre y calorías)
+a un contenedor específico en función de la selección actual del menú desplegable */
 function addEntry() {
   const targetInputContainer = document.querySelector(`#${entryDropdown.value} .input-container`);
   const entryNumber = targetInputContainer.querySelectorAll('input[type="text"]').length + 1;
@@ -32,6 +37,8 @@ function addEntry() {
   targetInputContainer.insertAdjacentHTML('beforeend', HTMLString);
 }
 
+/* Función que calcula las calorías consumidas, quemadas y restantes, comparándolas
+con un budget predefinido, y genera un resumen visual en el elemento output */
 function calculateCalories(e) {
   e.preventDefault();
   isError = false;
@@ -67,6 +74,8 @@ function calculateCalories(e) {
   output.classList.remove('hide');
 }
 
+/* Función que procesa una lista de entradas de calorías validando
+los datos, sumando las calorías y devolviendo el total */
 function getCaloriesFromInputs(list) {
   let calories = 0;
 
@@ -84,6 +93,7 @@ function getCaloriesFromInputs(list) {
   return calories;
 }
 
+/* Función que limpia y reestablece el formulario */
 function clearForm() {
   const inputContainers = Array.from(document.querySelectorAll('.input-container'));
 
